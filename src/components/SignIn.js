@@ -28,11 +28,28 @@ const SignIn = () => {
     }
   };
 
+  const handleSignIn = () => {
+    axios({
+      url: "https://www.pre-onboarding-selection-task.shop/auth/signin",
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        email: email,
+        password: pw,
+      },
+    })
+      .then(function (response) {
+        console.log(response);
+        alert("로그인 성공하였습니다.");
+        navigate("/todo");
+      })
+      .catch((error) => alert("로그인에 실패하였습니다."));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (emailValid && pwValid) {
-      alert("로그인 성공하였습니다.");
-      navigate("/todo");
+      handleSignIn();
     }
   };
 
