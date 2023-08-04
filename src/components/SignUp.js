@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [emailValid, setEmailValid] = useState(false);
@@ -27,8 +28,24 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSignUp = () => {
+    axios({
+      url: "https://www.pre-onboarding-selection-task.shop/auth/signup",
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        email: email,
+        password: pw,
+      },
+    }).then(function (response) {
+      console.log(response);
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (emailValid && pwValid) {
+      handleSignUp();
       alert("회원가입이 완료되었습니다.");
       navigate("/signin");
     }
@@ -59,8 +76,8 @@ const SignUp = () => {
         {!pwValid && <Error>비밀번호를 8글자 이상 입력해주세요</Error>}
         {emailValid && pwValid ? (
           <Button
-            data-testid="signup-button"
             onSubmit={handleSubmit}
+            data-testid="signup-button"
             disabled={false}
           >
             회원가입
