@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -28,6 +30,7 @@ const SignUp = () => {
   const handleSubmit = () => {
     if (emailValid && pwValid) {
       alert("회원가입이 완료되었습니다.");
+      navigate("/signin");
     }
   };
 
@@ -54,14 +57,19 @@ const SignUp = () => {
           value={pw}
         />
         {!pwValid && <Error>비밀번호를 8글자 이상 입력해주세요</Error>}
-        <Button
-          type="submit"
-          data-testid="signup-button"
-          disabled={emailValid && pwValid}
-          onSubmit={handleSubmit}
-        >
-          회원가입
-        </Button>
+        {emailValid && pwValid ? (
+          <Button
+            data-testid="signup-button"
+            onSubmit={handleSubmit}
+            disabled={false}
+          >
+            회원가입
+          </Button>
+        ) : (
+          <Button data-testid="signup-button" disabled={true}>
+            회원가입
+          </Button>
+        )}
       </Form>
     </Container>
   );
@@ -102,7 +110,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   border-radius: 5px;
-  background-color: ${(props) => (props.disabled ? "#8258fa" : "#E6E0F8")};
+  background-color: ${(props) => (props.disabled ? "#E6E0F8" : "#8258fa")};
   height: 30px;
   color: #fff;
   font-weight: 600;
