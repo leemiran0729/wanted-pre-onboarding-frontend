@@ -46,6 +46,7 @@ const SignIn = () => {
     })
       .then(function (response) {
         localStorage.setItem("access_token", response.data.access_token);
+        sessionStorage.setItem("user_id", email);
         alert("로그인 성공하였습니다.");
         navigate("/todo");
       })

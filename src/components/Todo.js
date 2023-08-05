@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Item from "./Item";
+import axios from "axios";
 
 const Todo = () => {
   const [todo, setTodo] = useState("");
@@ -12,10 +13,20 @@ const Todo = () => {
   useEffect(() => {
     if (!localStorage.getItem("access_token")) {
       navigate("/signin");
+      return;
     }
-    if (localStorage.getItem("todos")) {
-      setTodos(JSON.parse(localStorage.getItem("todos")));
-    }
+
+    axios({
+      url: "https://www.pre-onboarding-selection-task.shop/todos",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ` + localStorage.getItem("access_token"),
+      },
+    })
+      .then(function (response) {
+        setTodos(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const handleChange = (e) => {
@@ -24,25 +35,44 @@ const Todo = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    setTodos([...todos, { id: new Date(), todo: todo, completed: false }]);
-    localStorage.setItem(
-      "todos",
-      JSON.stringify([
-        ...todos,
-        { id: new Date(), todo: todo, completed: false },
-      ])
-    );
+    axios({
+      url: "https://www.pre-onboarding-selection-task.shop/todos",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("access_token"),
+      },
+      data: {
+        todo: todo,
+      },
+    })
+      .then(function (response) {
+        setTodos([...todos, response.data]);
+      })
+      .catch((error) => console.log(error));
   };
 
-  const handleChecked = (id) => {
+  const handleChecked = (item) => {
+    axios({
+      url: `https://www.pre-onboarding-selection-task.shop/todos/${item.id}`,
+      method: "put",
+      headers: {
+        Authorization: `Bearer ` + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+      data: {
+        todo: item.todo,
+        isCompleted: !item.isCompleted,
+      },
+    });
+
     const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
+      if (todo.id === item.id) {
+        todo.isCompleted = !todo.isCompleted;
       }
       return todo;
     });
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   return (

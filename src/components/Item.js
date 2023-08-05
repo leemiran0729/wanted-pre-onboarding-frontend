@@ -1,29 +1,50 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Item = ({ todos, item, handleChecked, setTodos }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [editedTodo, setEditedTodo] = useState(item.todo);
 
-  const handleEdit = (id) => {
+  const handleEdit = (item) => {
+    axios({
+      url: `https://www.pre-onboarding-selection-task.shop/todos/${item.id}`,
+      method: "put",
+      headers: {
+        Authorization: `Bearer ` + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+      data: {
+        todo: editedTodo,
+        isCompleted: item.isCompleted,
+      },
+    });
+
     const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
+      if (todo.id === item.id) {
         todo.todo = editedTodo;
       }
       return todo;
     });
 
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+
     alert("수정되었습니다.");
     setIsEdited(false);
   };
 
   const handleRemove = (id) => {
+    axios({
+      url: `https://www.pre-onboarding-selection-task.shop/todos/${item.id}`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ` + localStorage.getItem("access_token"),
+      },
+    });
+
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
     alert("삭제되었습니다.");
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const handleChange = (e) => {
@@ -39,10 +60,7 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
           value={editedTodo}
           onChange={handleChange}
         />
-        <SubButton
-          data-testid="submit-button"
-          onClick={() => handleEdit(item.id)}
-        >
+        <SubButton data-testid="submit-button" onClick={() => handleEdit(item)}>
           제출
         </SubButton>
         <SubButton
@@ -58,8 +76,8 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
       <Li key={item.id}>
         <input
           type="checkbox"
-          checked={item.completed}
-          onChange={() => handleChecked(item.id)}
+          checked={item.isCompleted}
+          onChange={() => handleChecked(item)}
         />
         <Span>{item.todo}</Span>
         <SubButton
