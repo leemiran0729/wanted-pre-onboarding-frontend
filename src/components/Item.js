@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Item = ({ todos, item, handleChecked, setTodos }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [editedTodo, setEditedTodo] = useState(item.todo);
-
-  let navigate = useNavigate();
 
   const handleEdit = (id) => {
     const newTodos = todos.map((todo) => {
