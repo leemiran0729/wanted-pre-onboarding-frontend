@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,12 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      navigate("/todo");
+    }
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
