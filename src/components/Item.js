@@ -53,6 +53,7 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
 
   const handleCancel = () => {
     setIsEdited(false);
+    setEditedTodo(item.todo);
   };
 
   if (isEdited) {
