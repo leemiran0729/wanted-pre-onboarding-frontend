@@ -87,19 +87,21 @@ const Todo = () => {
           추가
         </Button>
       </Form>
-      <Ul>
-        {todos.map((item) => {
-          return (
-            <Item
-              key={item.id}
-              item={item}
-              todos={todos}
-              handleChecked={handleChecked}
-              setTodos={setTodos}
-            />
-          );
-        })}
-      </Ul>
+      <List>
+        <Ul>
+          {todos.map((item) => {
+            return (
+              <Item
+                key={item.id}
+                item={item}
+                todos={todos}
+                handleChecked={handleChecked}
+                setTodos={setTodos}
+              />
+            );
+          })}
+        </Ul>
+      </List>
     </div>
   );
 };
@@ -123,6 +125,14 @@ const Button = styled.button`
   height: 30px;
   color: #fff;
   font-weight: 600;
+  cursor: pointer;
+`;
+
+const List = styled.div`
+  border: 1px dotted #8258fa;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 500px;
 `;
 
 const Ul = styled.ul``;

@@ -99,7 +99,9 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
 
 export default Item;
 
-const Li = styled.li``;
+const Li = styled.li`
+  list-style: none;
+`;
 
 const Span = styled.span``;
 
@@ -110,4 +112,9 @@ const SubButton = styled.button`
   color: #8258fa;
   margin: 5px;
   border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #8258fa;
+    color: #fff;
+  }
 `;
