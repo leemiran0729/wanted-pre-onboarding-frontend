@@ -51,6 +51,10 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
     setEditedTodo(e.target.value);
   };
 
+  const handleCancel = () => {
+    setIsEdited(false);
+  };
+
   if (isEdited) {
     return (
       <Li>
@@ -63,10 +67,7 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
         <SubButton data-testid="submit-button" onClick={() => handleEdit(item)}>
           제출
         </SubButton>
-        <SubButton
-          data-testid="cancel-button"
-          onClick={() => setIsEdited(false)}
-        >
+        <SubButton data-testid="cancel-button" onClick={handleCancel}>
           취소
         </SubButton>
       </Li>
