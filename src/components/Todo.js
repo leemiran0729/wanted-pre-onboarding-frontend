@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Item from "./Item";
 
 const Todo = () => {
   const [todo, setTodo] = useState("");
@@ -31,7 +32,6 @@ const Todo = () => {
         { id: new Date(), todo: todo, completed: false },
       ])
     );
-    setTodo("");
   };
 
   const handleChecked = (id) => {
@@ -60,18 +60,13 @@ const Todo = () => {
       <Ul>
         {todos.map((item) => {
           return (
-            <li key={item.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={item.completed}
-                  onChange={() => handleChecked(item.id)}
-                />
-                <span>{item.todo}</span>
-              </label>
-              <button data-testid="modify-button">수정</button>
-              <button data-testid="delete-button">삭제</button>
-            </li>
+            <Item
+              key={item.id}
+              item={item}
+              todos={todos}
+              handleChecked={handleChecked}
+              setTodos={setTodos}
+            />
           );
         })}
       </Ul>
