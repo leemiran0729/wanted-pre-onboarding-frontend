@@ -19,7 +19,12 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
     setIsEdited(false);
   };
 
-  const handleRemove = () => {};
+  const handleRemove = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+    alert("삭제되었습니다.");
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
 
   const handleChange = (e) => {
     setEditedTodo(e.target.value);
@@ -63,7 +68,10 @@ const Item = ({ todos, item, handleChecked, setTodos }) => {
         >
           수정
         </SubButton>
-        <SubButton data-testid="delete-button" onClick={handleRemove}>
+        <SubButton
+          data-testid="delete-button"
+          onClick={() => handleRemove(item.id)}
+        >
           삭제
         </SubButton>
       </Li>
