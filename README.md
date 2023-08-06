@@ -14,13 +14,12 @@ npm install & npm start
 ## 데모영상
 
 - 회원가입 (Signup)
-  ![signup](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/44cb5193-a58f-4fe3-aea3-a22fbf6571d5)
-
+  ![signup](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/c37ccf0b-d0f9-47f4-9f59-dcddac5b79cb)
 - 로그인 (Signin)
-  ![signin](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/10b04c8f-415d-4262-8231-9bdc5893cb76)
+  ![signin](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/500d90a7-6cbb-47fc-93ef-e7fb80d80ed4)
 
 - 할일목록 (Todo)
-  ![todo](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/5b99813c-0360-4197-b628-b67aae8cce66)
+  ![todo](https://github.com/leemiran0729/wanted-pre-onboarding-frontend/assets/134479304/3d61f1d1-6e29-4176-adc6-019b3182a76f)
 
 ## 사용 라이브러리
 
